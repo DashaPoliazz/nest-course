@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from 'src/schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UsersModule } from './users.module';
 
 @Injectable()
 export class UsersService {
@@ -12,5 +11,9 @@ export class UsersService {
   async create(createUserDto: CreateUserDto): Promise<User> {
     const createdUser = new this.userModel(createUserDto);
     return createdUser.save();
+  }
+
+  async getUsers(): Promise<User[]> {
+    return this.userModel.find({});
   }
 }
